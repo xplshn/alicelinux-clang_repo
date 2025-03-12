@@ -27,8 +27,10 @@ jobs:
         git config user.email 'action@github.com'
 
         git checkout --orphan temp-branch
-        git rm -rf .
-        git checkout codeberg/clang -- .
+        git rm -rf LICENSE README.md .woodpecker.yml .
+        git checkout codeberg/clang -- repos/clang
+        git mv repos/clang/* .
+        git rm -r repos
         git commit -m "Import changes from Codeberg"
 
         git checkout master
