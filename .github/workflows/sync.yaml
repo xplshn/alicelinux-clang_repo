@@ -30,7 +30,7 @@ jobs:
         mv ./alicelinux/repos/clang/* .
         rm -rf ./alicelinux
         git add .
-        git commit -s -m "sync"
+        git commit -s -m "sync" || true
 
     - name: Push changes to GitHub
       run: |
