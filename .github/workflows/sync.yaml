@@ -26,6 +26,7 @@ jobs:
         git config user.email 'action@github.com'
 
         rm -rf LICENSE README.md .woodpecker.yml
+        rm -rf./repos/clang/alicelinux || true
         mv ./repos/clang/* .
         rm -rf ./repos
         git add .
