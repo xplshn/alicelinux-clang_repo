@@ -34,4 +34,4 @@ jobs:
 
     - name: Push changes to GitHub
       run: |
-        git push origin master
+        git push origin master || true
