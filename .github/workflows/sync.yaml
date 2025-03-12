@@ -18,21 +18,22 @@ jobs:
 
     - name: Add Codeberg remote
       run: |
-        git clone --depth=1 --branch=clang https://codeberg.org/emmett1/alicelinux.git
+        git remote add codeberg https://codeberg.org/emmett1/alicelinux.git
+        git fetch codeberg
 
     - name: Merge changes from Codeberg
       run: |
         git config user.name '󰬭 [CI] '
         git config user.email 'action@github.com'
 
-        rm -rf LICENSE README.md .woodpecker.yml
-        mv ./repos/clang/* .
-        rm -rf ./repos
-        git add .
-        git commit -s -m "sync"
-        
-        #git checkout master
-        #git merge --allow-unrelated-histories codeberg/clang
+        git checkout --orphan temp-branch
+        git rm -rf .
+        git checkout codeberg/clang -- .
+        git commit -m "Import changes from Codeberg"
+
+        git checkout master
+        git merge temp-branch --allow-unrelated-histories
+        git branch -D temp-branch
 
     - name: Push changes to GitHub
       run: |
